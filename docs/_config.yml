@@ -14,19 +14,17 @@ linkedin: "https://linkedin.com/company/pedogee"
 
 # Build settings
 markdown: kramdown
-theme: minima
+remote_theme: pages-themes/cayman@v0.2.0
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-remote-theme
 
 # Navigation
 header_pages:
   - index.md
-  - services.md
   - about.md
-  - resources.md
-  - contact.md
 
 # Collections
 collections:
