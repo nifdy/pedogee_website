@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Zero Trust Security: A Comprehensive Implementation Guide for 2025"
 date: 2025-01-15
 category: Security Architecture
