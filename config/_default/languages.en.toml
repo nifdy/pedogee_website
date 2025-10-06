@@ -1,0 +1,22 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "Pedogee"
+
+[params]
+displayName = "EN"
+isoCode = "en"
+rtl = false
+dateFormat = "2 January 2006"
+logo = "pedogee_logo_green.png"
+description = "Data Clarity. Security Certainty."
+secondaryLogo = "pedogee_logo_green.png"
+
+  [params.author]
+  links = [ ]
+
+["params.author"]
+name = "Brad Sjue"
+headline = "Brad Sjue | Data Analytics & Security Expert | Transforming Security Complexity into Clarity"
+bio = 'Brad Sjue is a senior information security leader with over 20 years of experience specializing in data engineering, security intelligence, and vulnerability management. Currently serving as Senior Manager in Information Security at Oracle Health, Brad leads a team that drives security transformations and delivers executive-level insights. His career includes progressive leadership roles at Cerner Corporation (2002-2022) where he created the Cyber Performance Scorecard used by executive leadership. Brad excels in translating complex security data into actionable intelligence, with expertise in data engineering, vulnerability management, and cross-functional leadership. He holds a BS in Psychology from Kansas State University and lives by his philosophy: "Simple is Better".'
