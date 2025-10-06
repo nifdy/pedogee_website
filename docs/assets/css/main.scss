@@ -1,0 +1,48 @@
+---
+---
+@use "sass:color";
+
+:root {
+  --brand-primary:  site.brand.primary ;
+  --brand-white:    site.brand.white ;
+  --brand-teal:     site.brand.teal ;
+  --brand-gray:     site.brand.gray ;
+  --brand-red:      site.brand.red ;
+  --brand-green:    site.brand.green ;
+}
+
+html { font-size: 16px; }
+body {
+  margin: 0; color: #0f172a; background: var(--brand-white);
+  font-family:  site.brand.font_body ;
+}
+
+header.site-header {
+  background: var(--brand-white);
+  border-bottom: 1px solid color.scale(#000, $alpha: -0.9);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1rem;
+}
+header .brand {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 0;
+}
+header nav a {
+  color: #0f172a; text-decoration: none; margin-right: 1rem;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-teal));
+  color: white; padding: 5rem 1.5rem; text-align: center;
+}
+.hero h1 { font-family:  site.brand.font_headings ; font-weight: 800; margin: 0 0 0.5rem; }
+.hero p { font-size: 1.125rem; opacity: 0.95; }
+.hero .cta { margin-top: 1.25rem; }
+.hero .cta a { background: white; color: #0f172a; padding: 0.75rem 1rem; border-radius: 0.5rem; }
+
+.section { padding: 3rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.section h2 { font-family:  site.brand.font_headings ; font-weight: 800; }
+
+footer.site-footer {
+  border-top: 1px solid color.scale(#000, $alpha: -0.9);
+  color: var(--brand-gray); padding: 2rem 1.5rem; text-align: center;
+}

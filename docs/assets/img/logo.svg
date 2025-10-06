@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+  <rect width="200" height="200" rx="24" fill="#3B5BA5"/>
+  <!-- Crane footprint motif: three-pronged mark -->
+  <path d="M60 120 L100 80 L140 120" stroke="#FAFBFC" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="100" cy="130" r="8" fill="#0D9488"/>
+</svg>
