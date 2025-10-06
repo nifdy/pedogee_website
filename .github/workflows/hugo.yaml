@@ -1,8 +1,8 @@
-name: Build and deploy
+name: Hugo Build and deploy
 on:
   push:
     branches:
-      - main
+      - gh-pages
   workflow_dispatch:
 permissions:
   contents: read
