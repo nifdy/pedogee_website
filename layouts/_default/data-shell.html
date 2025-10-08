@@ -1,0 +1,150 @@
+ define "main" 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> .Title  | Pedogee</title>
+  <meta name="description" content=" .Description ">
+  
+  <!-- Pedogee Shell CSS -->
+  <link rel="stylesheet" href="/css/pedogee-shell.css">
+</head>
+<body>
+  <div class="pedogee-shell">
+    <!-- Header -->
+    <header class="shell-header">
+      <div class="header-content">
+        <div class="logo-section">
+          <span class="logo-icon">🦆</span>
+          <div class="logo-text">
+            <h1>Pedogee Data Shell</h1>
+            <p class="tagline">Local-first DuckDB Analytics</p>
+          </div>
+        </div>
+        <nav class="header-nav">
+          <a href="/" class="nav-link">← Home</a>
+          <a href="https://duckdb.org/docs" target="_blank" class="nav-link">Docs</a>
+          <a href="#examples" class="nav-link">Examples</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Shell Interface -->
+    <main class="shell-main">
+      <!-- Top Toolbar -->
+      <div class="toolbar">
+        <div class="toolbar-left">
+          <button id="btn-run" class="btn btn-primary" title="Run Query (Ctrl+Enter)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M3 2l10 6-10 6V2z"/>
+            </svg>
+            Run
+          </button>
+          <button id="btn-clear" class="btn btn-secondary" title="Clear Results">
+            Clear
+          </button>
+          <button id="btn-sample" class="btn btn-secondary" title="Load Sample Data">
+            📊 Load Sample
+          </button>
+        </div>
+        <div class="toolbar-right">
+          <span id="status-badge" class="status-badge loading">Initializing...</span>
+          <span id="query-time" class="query-time"></span>
+        </div>
+      </div>
+
+      <!-- Editor and Results Layout -->
+      <div class="shell-layout">
+        <!-- Left: SQL Editor -->
+        <div class="editor-container">
+          <div class="panel-header">
+            <h3>SQL Editor</h3>
+            <div class="panel-actions">
+              <button id="btn-format" class="icon-btn" title="Format SQL">⚡</button>
+              <button id="btn-copy" class="icon-btn" title="Copy SQL">📋</button>
+            </div>
+          </div>
+          <textarea id="editor" class="sql-editor" spellcheck="false">-- Welcome to Pedogee Data Shell
+-- Powered by DuckDB WASM
+
+SELECT 
+  'Hello from Pedogee!' as message,
+  CURRENT_DATE as today,
+  version() as duckdb_version;</textarea>
+        </div>
+
+        <!-- Right: Results -->
+        <div class="results-container">
+          <div class="panel-header">
+            <h3>Results</h3>
+            <div class="panel-actions">
+              <button id="btn-export-csv" class="icon-btn" title="Export CSV">💾 CSV</button>
+              <button id="btn-export-json" class="icon-btn" title="Export JSON">📦 JSON</button>
+            </div>
+          </div>
+          <div id="results" class="results-area">
+            <div class="empty-state">
+              <span class="empty-icon">🦆</span>
+              <p>Run a query to see results</p>
+              <p class="hint">Try <kbd>Ctrl+Enter</kbd> to execute</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Example Queries -->
+      <aside class="examples-panel" id="examples">
+        <h3>Quick Start Examples</h3>
+        <div class="examples-grid">
+          <button class="example-card" data-query="SELECT version() as duckdb_version;">
+            <div class="example-title">🔍 Version Info</div>
+            <code>SELECT version();</code>
+          </button>
+          
+          <button class="example-card" data-query="SELECT CURRENT_DATE as today, CURRENT_TIME as now, CURRENT_TIMESTAMP as timestamp;">
+            <div class="example-title">📅 Date & Time</div>
+            <code>SELECT CURRENT_DATE, CURRENT_TIME;</code>
+          </button>
+          
+          <button class="example-card" data-query="SELECT unnest(generate_series(1, 20)) as n, random() as value ORDER BY n;">
+            <div class="example-title">📈 Generate Series</div>
+            <code>SELECT unnest(generate_series(1, 20))...</code>
+          </button>
+          
+          <button class="example-card" data-query="CREATE TABLE IF NOT EXISTS demo AS SELECT unnest(range(1, 101)) as id, 'User_' || unnest(range(1, 101)) as username, (random() * 1000)::INTEGER as revenue;\n\nSELECT * FROM demo ORDER BY revenue DESC LIMIT 10;">
+            <div class="example-title">🗂️ Create Table</div>
+            <code>CREATE TABLE demo...</code>
+          </button>
+          
+          <button class="example-card" data-query="-- Simulate tree canopy data\nCREATE OR REPLACE TABLE city_trees AS\nSELECT \n  unnest(range(1, 251)) as tree_id,\n  (['Oak', 'Maple', 'Birch', 'Pine', 'Elm'])[1 + (random() * 5)::INT % 5] as species,\n  (['Downtown', 'North', 'South', 'East', 'West'])[1 + (random() * 5)::INT % 5] as neighborhood,\n  2000 + (random() * 25)::INT as year_planted,\n  15 + (random() * 50)::INT as height_ft,\n  random() * 100 as health_score;\n\nSELECT neighborhood, species, COUNT(*) as tree_count, AVG(health_score)::INT as avg_health\nFROM city_trees\nGROUP BY neighborhood, species\nORDER BY tree_count DESC\nLIMIT 15;">
+            <div class="example-title">🌳 Municipal Trees</div>
+            <code>CREATE TABLE city_trees...</code>
+          </button>
+          
+          <button class="example-card" data-query="-- Cybersecurity metrics simulation\nCREATE OR REPLACE TABLE security_posture AS\nSELECT\n  CURRENT_DATE - INTERVAL (unnest(range(0, 30))) DAY as date,\n  50 + (random() * 30)::INT as open_vulns,\n  (random() * 8)::INT as critical_vulns,\n  85 + (random() * 15)::INT as patch_pct,\n  (random() * 3)::INT as incidents;\n\nSELECT \n  date,\n  open_vulns,\n  critical_vulns,\n  patch_pct,\n  incidents\nFROM security_posture\nORDER BY date DESC;">
+            <div class="example-title">🔒 Security Metrics</div>
+            <code>CREATE TABLE security_posture...</code>
+          </button>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="shell-footer">
+      <div class="footer-content">
+        <p><strong>Pedogee Data Studio</strong> — DuckDB-powered data products for security and civic analytics</p>
+        <p class="footer-note">🔒 Privacy-first: All computation happens in your browser. Zero data transmission.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Load DuckDB WASM from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/dist/duckdb-mvp.wasm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@latest/dist/duckdb-browser-mvp.worker.js"></script>
+  
+  <!-- Pedogee Custom Shell Script -->
+  <script src="/js/pedogee-duckdb.js"></script>
+</body>
+</html>
+ end 
