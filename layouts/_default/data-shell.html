@@ -197,7 +197,30 @@ SELECT
 
                         <button
                             class="example-card"
-                            data-query="-- Cybersecurity metrics simulation\nCREATE OR REPLACE TABLE security_posture AS\nSELECT\n  CURRENT_DATE - INTERVAL (unnest(range(0, 30))) DAY as date,\n  50 + (random() * 30)::INT as open_vulns,\n  (random() * 8)::INT as critical_vulns,\n  85 + (random() * 15)::INT as patch_pct,\n  (random() * 3)::INT as incidents;\n\nSELECT \n  date,\n  open_vulns,\n  critical_vulns,\n  patch_pct,\n  incidents\nFROM security_posture\nORDER BY date DESC;"
+                            data-query="-- Cybersecurity metrics simulation
+                            CREATE OR REPLACE TABLE security_posture AS
+                            SELECT
+                              -- Generate a series of 31 dates, starting from CURRENT_DATE and going back 30 days
+                              -- DuckDB uses 'd' as a shortcut for the days component in the INTERVAL.
+                              CURRENT_DATE - (i.day_offset * INTERVAL 1 DAY) AS date,
+                              -- Simulated data for metrics. DuckDB uses ::INT for casting to integer.
+                              50 + (random() * 30)::INT AS open_vulns,
+                              (random() * 8)::INT AS critical_vulns,
+                              85 + (random() * 15)::INT AS patch_pct,
+                              (random() * 3)::INT AS incidents
+                            FROM (
+                                -- Use unnest(range(...)) to generate the series of numbers (0 to 30)
+                                SELECT unnest(range(0, 31)) AS day_offset -- range(0, 31) generates 0 through 30
+                            ) AS i;
+
+                            SELECT
+                              date,
+                              open_vulns,
+                              critical_vulns,
+                              patch_pct,
+                              incidents
+                            FROM security_posture
+                            ORDER BY date DESC;"
                         >
                             <div class="example-title">🔒 Security Metrics</div>
                             <code>CREATE TABLE security_posture...</code>
