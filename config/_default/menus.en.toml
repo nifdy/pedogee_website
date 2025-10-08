@@ -18,6 +18,10 @@
     name = 'Products'
     pageRef = 'products'
     weight = 20
+  [[main]]
+    name = 'Data Studio'
+    pageRef = 'tools'
+    weight = 30
 #  [[menus.main]]
 #    name = 'Services'
 #    pageRef = '/services'
